@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+      <dl>
+        <dt>Event Name:
+        <dd><input type=text size=30 name=title>
+        <dt>Description:
+        <dd><textarea name=text rows=5 cols=40></textarea>
+		<dt>Date:
+		<dd><input type="datetime-local" required><dd><input type="time">
+        <dd><input type=submit value=Share>
+      </dl>
+    </form>
+  {% endif %}
+  <ul class=entries>
+  {% for entry in entries %}
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  {% else %}
+    <li><em>At this time there are No Events scheduled</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
